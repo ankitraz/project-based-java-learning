@@ -12,7 +12,7 @@ public class experiment_1 {
         int[] hra = {8000, 12000, 8000, 6000, 20000, 9000, 12000};
         int[] it = {3000, 9000, 1000, 2000, 20000, 4400, 10000};
         char[] DesCodes= {'e', 'c', 'k', 'r', 'm', 'e', 'c'};   
-        int[] DA = {1000,2000,1000,4000,3000,6000,5000};
+        int[] DA = {1000,2000,1000,4000,3000,1000,2000};
 
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the emp no:");
@@ -20,18 +20,19 @@ public class experiment_1 {
 
         for (int i = 0; i < empNO.length; i++) {
             if(input_emp_no == empNO[i]){
-                System.out.println("EmpName :" + empName[i]);
-                System.out.println("depName :" + depName[i]);
-                System.out.println("dateJoin :" + datejoin[i]);
-                System.out.println("basic :" + basic[i]);
-                System.out.println("hra :" + hra[i]);
-                System.out.println("it :" + it[i]);
-                System.out.println("Descode :" + DesCodes[i]);
-                System.out.println("Salary:  " + (basic[i] + hra[i] + DA[i] - it[i]));
+                System.out.println("EmpName " + " depName " + " dateJoin "+ " basic " + " hra " + " it " + " Descode " + " Salary ");
+                System.out.println(empName[i] + "  " + depName[i] + "  "  + datejoin[i] + "  " + basic[i] + "  " + hra[i] + "  " + it[i]+ "  " + DesCodes[i] + "  " + (basic[i] + hra[i] + DA[i] - it[i]));
+                // System.out.print("depName :" + depName[i] + "  ") ;
+                // System.out.print("dateJoin :" + datejoin[i] + "  ");
+                // System.out.print("basic :" + basic[i] + "  ");
+                // System.out.print("hra :" + hra[i] + "  ");
+                // System.out.print("it :" + it[i]+ "  ");
+                // System.out.print("Descode :" + DesCodes[i] + "  ");
+                // System.out.print("Salary:  " + (basic[i] + hra[i] + DA[i] - it[i])+ "  ");
             }
+            
         }
 
-        System.out.println("--------------------------------------------------------------");
 
         char input_descode;
         System.out.println("Enter the designation code: ");
