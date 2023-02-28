@@ -4,21 +4,75 @@ import java.util.Scanner;
 
 public class exp_3 {
     public static void main(String[] args) {
-        System.out.println("Enter Your age: ");
         Scanner input = new Scanner(System.in);
+        System.out.println("Enter Your age: ");
         int age = input.nextInt();
-        System.out.println("Enter maturity period: ");
+        System.out.println("Enter no.of months: ");
         double maturity_period = input.nextInt();
-        fdAccount a1 = new fdAccount(age, maturity_period);
-        a1.calculateFD();
+        System.out.println("Enter amount: ");
+        double amount = input.nextInt();
+        // fdAccount a1 = new fdAccount(age, maturity_period);
+        // a1.calculateFD();
+        RDaccount(age, maturity_period, amount);
         input.close();
+        
+
+
+    }
+
+    static void RDaccount(int age, double no_of_months, double amount){
+         double interest_rate = 0;
+         double time = no_of_months;
+        
+            
+            if (age < 60){
+                if (no_of_months == 6){
+                    interest_rate = 7.5;
+                }
+                else if (no_of_months == 9){
+                    interest_rate = 7.75;
+                }
+                else if (no_of_months == 12){
+                    interest_rate = 8.00;
+                }
+                else if (no_of_months == 15){
+                    interest_rate = 8.25;
+                }
+                else if (no_of_months == 18){
+                    interest_rate = 8.50;
+                }
+                else if (no_of_months == 21){
+                    interest_rate = 8.75;
+                }
+            else if(age >= 60){
+                if (no_of_months == 6){
+                    interest_rate = 8.0;
+                }
+                else if (no_of_months == 9){
+                    interest_rate = 8.25;
+                }
+                else if (no_of_months == 12){
+                    interest_rate = 8.50;
+                }
+                else if (no_of_months == 15){
+                    interest_rate = 8.75;
+                }
+                else if (no_of_months == 18){
+                    interest_rate = 9.00;
+                }
+                else if (no_of_months == 21){
+                    interest_rate = 9.25;
+                    }
+                }
+            }
+            double interest = ((amount * (time*(time+1)/2)* (1/12) * interest_rate)/100);
+            System.out.println("Interest: " + interest);
     }
 }
 
-
  class fdAccount{
     public int age;
-    public double interest_rate = 0;
+     double interest_rate = 0;
     public double amount = 23000;
     public double maturity_period;
     fdAccount(int age, double maturity_period){
@@ -69,18 +123,3 @@ public class exp_3 {
         System.out.println("Interest: " + interest);
     }
 }
-
-
-
-// class FDaccount extends Account{
-//     double interest_rate;
-//     double amount;
-//     int no_of_days;
-//     int age_of_ac_holder;
-    
-//     double calculate_interest(int amount, int no_of_days, double interest_rate, int age){
-//         if (age > 60){
-
-//         }
-//     }
-// }
