@@ -197,41 +197,33 @@ import java.util.*;
             }
         }
 
-            class Main {
+            class experiment3 {
                 public static void main(String[] args) {
 
-                    Scanner sc = new Scanner(System.in);
+                    Scanner input = new Scanner(System.in);
+                    // SBAccount sb = new SBAccount();
 
-
-                    SBAccount sb = new SBAccount();
-
-                    FDAccount fd = new FDAccount();
-                    RDAccount rd = new RDAccount();
-
-                    while (true) {
-                        System.out.println("\nSelect the option:" +
-                                "\n1. Calculate SB - " +
-                                "\n2. Calculate FD - " +
-                                "\n3. Calculate RD - " +
-                                "\n4. Close this menu.\n");
-                        int n = sc.nextInt();
+                    FDAccount f1 = new FDAccount();
+                    RDAccount r1 = new RDAccount();
+                        System.out.println("\nSelect the option:");
+                        System.out.println("1. CAlculate fd interest: ");
+                        System.out.println("2. Calculate rd interest: ");
+                        System.out.println();
+                        int n = input.nextInt();
+                        input.close();
                         switch (n) {
+                            // case 3:
+                            //     double d1 = sb.calculateInterest();
+                            //     System.out.println("Interest gained is: " + d1);
+                            //     break;
                             case 1:
-                                double d1 = sb.calculateInterest();
-                                System.out.println("Interest -  " + d1);
+                                double d2 = f1.calculateInterest();
+                                System.out.println("Interest: " + d2);
                                 break;
                             case 2:
-                                double d2 = fd.calculateInterest();
-                                System.out.println("Interest - " + d2);
+                                double d3 =  r1.calculateInterest();
+                                System.out.println("Interest: " + d3);
                                 break;
-                            case 3:
-                                double d3 =  rd.calculateInterest();
-                                System.out.println("Interest - " + d3);
-                                break;
-                            case 4:
-                                System.out.println("Exiting...");
-                                sc.close();
                         }
-                    }
                 }
             }

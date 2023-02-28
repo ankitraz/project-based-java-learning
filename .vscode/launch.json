@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch experiment3",
+            "request": "launch",
+            "mainClass": "experiment3",
+            "projectName": "project-based-java-learning_7b0831f9"
+        },
+        {
+            "type": "java",
             "name": "Launch exp_3",
             "request": "launch",
             "mainClass": "exp_3",

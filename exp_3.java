@@ -4,17 +4,17 @@ import java.util.Scanner;
 
 public class exp_3 {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter Your age: ");
-        int age = input.nextInt();
-        System.out.println("Enter no.of months: ");
-        double maturity_period = input.nextInt();
-        System.out.println("Enter amount: ");
-        double amount = input.nextInt();
+        // Scanner input = new Scanner(System.in);
+        // System.out.println("Enter Your age: ");
+        // int age = input.nextInt();
+        // System.out.println("Enter no.of months: ");
+        // double maturity_period = input.nextInt();
+        // System.out.println("Enter amount: ");
+        // double amount = input.nextInt();
         // fdAccount a1 = new fdAccount(age, maturity_period);
         // a1.calculateFD();
-        RDaccount(age, maturity_period, amount);
-        input.close();
+        RDaccount(23, 6, 555555);
+        // input.close();
         
 
 
@@ -65,10 +65,15 @@ public class exp_3 {
                     }
                 }
             }
-            double interest = ((amount * (time*(time+1)/2)* (1/12) * interest_rate)/100);
+            double interest = ((amount * ((time*(time+1))/2)* (1/12) * (interest_rate)/100));
             System.out.println("Interest: " + interest);
     }
 }
+
+
+
+
+
 
  class fdAccount{
     public int age;
