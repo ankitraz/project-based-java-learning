@@ -1,4 +1,3 @@
-//create an application to calculate interest for SBs, FDs and RDs based on certain conditions using inheritance
 
 import java.util.*;
 
