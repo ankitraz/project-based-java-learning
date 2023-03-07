@@ -2,9 +2,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
+
 public class exp_4 {
+
+    static List<Employee> employeeList = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -12,8 +19,10 @@ public class exp_4 {
         System.out.println("Enter a selection: ");
         System.out.println("1. Add an Employee: ");
         System.out.println("2. Display All: ");
-        System.out.println("3. Exit!");
-        System.out.println("----------------------------------------");
+        System.out.println("3. Display an employee by its ID: ");
+        System.out.println("4. Exit!");
+        System.out.println("-------------------------------------");
+        System.out.println();
         int user_input = sc.nextInt();
 
         switch (user_input) {
@@ -23,6 +32,8 @@ public class exp_4 {
             case 2:
                 displayDetails();
                 break;
+            case 3: 
+                displayDetailsbyID();
             default:
                 System.out.println("Thanks for using ! Exiting... ");
                 break;
@@ -30,64 +41,119 @@ public class exp_4 {
         sc.close();
     }
 
-    static void addEmployee(){
+    static void addEmployee() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the name of employee: ");
-        String EmpName = sc.next();
+        String empName = sc.next();
         System.out.println("Enter Employee ID: ");
-        int EmpID = sc.nextInt();
+        int empID = sc.nextInt();
         System.out.println("Enter Designation: ");
-        String EmpDesign = sc.next();
+        String empDesign = sc.next();
         System.out.println("Enter Salary of Employee: ");
-        String EmpSalary = sc.next();
+        String empSalary = sc.next();
         sc.close();
 
+        Employee employee = new Employee(empID, empName, empDesign, empSalary);
+        employeeList.add(employee);
 
-        // Creating new file to store all the above data
+        // sort the employeeList by employee ID
+        Collections.sort(employeeList, Comparator.comparing(Employee::getEmpID));
 
-        File myobj = new File("details.txt");
-        System.out.println("File created sucesfully.");
-        System.out.println("Writing to file....");
-
-        try{
-            FileWriter myWriter = new FileWriter("details.txt", true);
-
-            if (myobj.createNewFile()) {
-                System.out.println("File created" + myobj.getName());
+        // write the employee details to file
+        try {
+            FileWriter myWriter = new FileWriter("details.txt");
+            for (Employee e : employeeList) {
+                myWriter.write(e.toString() + "\n");
             }
-            else {
-                System.out.println("File already exists!");
-            }
-
-
-            myWriter.write(EmpID);
-            myWriter.write(EmpName);
-            myWriter.write(EmpDesign);
-            myWriter.write(EmpSalary);
             myWriter.close();
-            
-            System.out.println("Details saved sucessfully!!!");
+            System.out.println("Details saved successfully!!!");
         } catch (IOException e) {
-            System.out.println("An error occured!!");
+            System.out.println("An error occurred!!");
             e.printStackTrace();
         }
     }
 
-
-    static void displayDetails(){
+    static void displayDetails() {
         try {
             File myObj = new File("details.txt");
             Scanner myReader = new Scanner(myObj);
 
-            while (myReader.hasNextLine()){
+            while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 System.out.println(data);
             }
             myReader.close();
 
         } catch (FileNotFoundException e) {
+            System.out.println("An error occurred!");
+            e.printStackTrace();
+        }
+    }
+
+    static void displayDetailsbyID() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the Employee ID: ");
+        int id = sc.nextInt();
+        sc.close();
+    
+        try {
+            File myObj = new File("details.txt");
+            Scanner myReader = new Scanner(myObj);
+    
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] values = data.split(",");
+                int empID = Integer.parseInt(values[0]);
+                if (empID == id) {
+                    System.out.println("Employee ID: " + empID);
+                    System.out.println("Name: " + values[1]);
+                    System.out.println("Designation: " + values[2]);
+                    System.out.println("Salary: " + values[3]);
+                    break;
+                }
+            }
+            myReader.close();
+    
+        } catch (FileNotFoundException e) {
             System.out.println("An error occured!");
             e.printStackTrace();
         }
     }
+    
+
+    static class Employee {
+        private int empID;
+        private String empName;
+        private String empDesign;
+        private String empSalary;
+
+        public Employee(int empID, String empName, String empDesign, String empSalary) {
+            this.empID = empID;
+            this.empName = empName;
+            this.empDesign = empDesign;
+            this.empSalary = empSalary;
+        }
+
+        public int getEmpID() {
+            return empID;
+        }
+
+        public String getEmpName() {
+            return empName;
+        }
+
+        public String getEmpDesign() {
+            return empDesign;
+        }
+
+        public String getEmpSalary() {
+            return empSalary;
+        }
+
+        public String toString() {
+            return empID + "," + empName + "," + empDesign + "," + empSalary;
+        }
+    }
 }
+
+

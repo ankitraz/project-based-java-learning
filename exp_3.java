@@ -1,130 +1,236 @@
-import java.util.Scanner;
 
-// create an application to calculate interest for fds, rds based on certain conditions.
+import java.util.*;
 
-public class exp_3 {
-    public static void main(String[] args) {
-        // Scanner input = new Scanner(System.in);
-        // System.out.println("Enter Your age: ");
-        // int age = input.nextInt();
-        // System.out.println("Enter no.of months: ");
-        // double maturity_period = input.nextInt();
-        // System.out.println("Enter amount: ");
-        // double amount = input.nextInt();
-        // fdAccount a1 = new fdAccount(age, maturity_period);
-        // a1.calculateFD();
-        RDaccount(23, 6, 555555);
-        // input.close();
-        
-
-
+    abstract class Accounts {
+        double interestRate;
+        double amount;
+        abstract double calculateInterest();
     }
+    class SBAccount extends Accounts {
+        Scanner sc = new Scanner(System.in);
+        double interestRate = 0;
+        double amount = 0;
 
-    static void RDaccount(int age, double no_of_months, double amount){
-         double interest_rate = 0;
-         double time = no_of_months;
-        
-            
-            if (age < 60){
-                if (no_of_months == 6){
-                    interest_rate = 7.5;
-                }
-                else if (no_of_months == 9){
-                    interest_rate = 7.75;
-                }
-                else if (no_of_months == 12){
-                    interest_rate = 8.00;
-                }
-                else if (no_of_months == 15){
-                    interest_rate = 8.25;
-                }
-                else if (no_of_months == 18){
-                    interest_rate = 8.50;
-                }
-                else if (no_of_months == 21){
-                    interest_rate = 8.75;
-                }
-            else if(age >= 60){
-                if (no_of_months == 6){
-                    interest_rate = 8.0;
-                }
-                else if (no_of_months == 9){
-                    interest_rate = 8.25;
-                }
-                else if (no_of_months == 12){
-                    interest_rate = 8.50;
-                }
-                else if (no_of_months == 15){
-                    interest_rate = 8.75;
-                }
-                else if (no_of_months == 18){
-                    interest_rate = 9.00;
-                }
-                else if (no_of_months == 21){
-                    interest_rate = 9.25;
-                    }
-                }
+        double calculateInterest() {
+            System.out.println("Enter your savings amount: ");
+            amount = sc.nextDouble();
+
+            System.out.println("Enter the account type:\n1. Normal\n2. NRI ");
+            int n = sc.nextInt();
+
+            if (amount < 0) {
+                System.out.println("Enter right amount.");
+                return 0;
             }
-            double interest = ((amount * ((time*(time+1))/2)* (1/12) * (interest_rate)/100));
-            System.out.println("Interest: " + interest);
+            if (n == 1) {
+                interestRate = amount * 4 / 100;
+            } else if (n == 2) {
+                interestRate = amount * 6 / 100;
+            } else {
+                System.out.println("Wrong choice.");
+                return 0;
+            }
+
+            return interestRate;
+        }
     }
-}
+    class FDAccount extends Accounts {
+        Scanner sc = new Scanner(System.in);
+        double interestRate;
+        double amount;
+        int noOfDays;
+        int ageOfACHolder;
 
+        double aboveCore(double amount1, int noOfDays) {
+            if (noOfDays >= 7 && noOfDays <= 14) {
+                return amount1 * 6.5 / 100;
+            } else if (noOfDays >= 15 && noOfDays <= 29) {
+                return amount1 * 6.75 / 100;
+            } else if (noOfDays >= 30 && noOfDays <= 44) {
+                return amount1 * 6.75 / 100;
+            } else if (noOfDays >= 45 && noOfDays <= 59) {
+                return amount1 * 8 / 100;
+            } else if (noOfDays >= 60 && noOfDays <= 184) {
+                return amount1 * 8.5 / 100;
+            } else if (noOfDays >= 185 && noOfDays <= 365) {
+                return amount1 * 10 / 100;
+            } else return 0;
+        }
 
-
-
-
-
- class fdAccount{
-    public int age;
-     double interest_rate = 0;
-    public double amount = 23000;
-    public double maturity_period;
-    fdAccount(int age, double maturity_period){
-            if (age < 65){
-                if( maturity_period > 7 && maturity_period <14){
-                    interest_rate = 4.50;
-                }
-                if( maturity_period > 15 && maturity_period < 29){
-                    interest_rate = 4.75;
-                }
-                if( maturity_period > 30 && maturity_period <45){
-                    interest_rate = 5.50;
-                }
-                if( maturity_period > 45 && maturity_period <60){
-                    interest_rate = 7.00;
-                }
-                if( maturity_period > 61 && maturity_period <184){
-                    interest_rate = 7.50;
-                }
-                if( maturity_period > 185 && maturity_period <365){
-                    interest_rate = 8.00;
-                }
-            else if (age >= 65 ){
-                if( maturity_period > 7 && maturity_period <14){
-                    interest_rate = 5.00;
-                }
-                if( maturity_period > 15 && maturity_period < 29){
-                    interest_rate = 5.25;
-                }
-                if( maturity_period > 30 && maturity_period <45){
-                    interest_rate = 6.00;
-                }
-                if( maturity_period > 45 && maturity_period <60){
-                    interest_rate = 7.50;
-                }
-                if( maturity_period > 61 && maturity_period <184){
-                    interest_rate = 8.00;
-                }
-                if( maturity_period > 185 && maturity_period <365){
-                    interest_rate = 8.50;
-                }
+        double belowCore(double amount2, int noOfDays, int ageOfACHolder) {
+            if (ageOfACHolder <= 60) {
+                if (noOfDays >= 7 && noOfDays <= 14) {
+                    return amount2 * 4.5 / 100;
+                } else if (noOfDays >= 15 && noOfDays <= 29) {
+                    return amount2 * 4.75 / 100;
+                } else if (noOfDays >= 30 && noOfDays <= 44) {
+                    return amount2 * 5.5 / 100;
+                } else if (noOfDays >= 45 && noOfDays <= 59) {
+                    return amount2 * 7 / 100;
+                } else if (noOfDays >= 60 && noOfDays <= 184) {
+                    return amount2 * 7.5 / 100;
+                } else if (noOfDays >= 185 && noOfDays <= 365) {
+                    return amount2 * 8 / 100;
+                } else
+                    return 0;
             }
+            else {
+                if (noOfDays >= 7 && noOfDays <= 14) {
+                    return amount2 * 5 / 100;
+                } else if (noOfDays >= 15 && noOfDays <= 29) {
+                    return amount2 * 5.25 / 100;
+                } else if (noOfDays >= 30 && noOfDays <= 44) {
+                    return amount2 * 6 / 100;
+                } else if (noOfDays >= 45 && noOfDays <= 59) {
+                    return amount2 * 7.5 / 100;
+                } else if (noOfDays >= 60 && noOfDays <= 184) {
+                    return amount2 * 8 / 100;
+                } else if (noOfDays >= 185 && noOfDays <= 365) {
+                    return amount2 * 8.5 / 100;
+                } else
+                    return 0;
+            }
+        }
+
+        double calculateInterest() {
+            System.out.println("Enter your FD amount: ");
+            amount = sc.nextDouble();
+
+            System.out.println("Enter the number of days: ");
+            noOfDays = sc.nextInt();
+
+            if (noOfDays < 0) {
+                System.out.println("Invalid no. of Days. Please Enter correct details.");
+                return 0;
+            }
+            System.out.println("Enter your Age: ");
+            ageOfACHolder = sc.nextInt();
+
+            if (ageOfACHolder < 0) {
+                System.out.println("Invalid Age. Please Enter correct details.");
+                return 0;
+            }
+
+            if (amount >= 0 && amount <= 10000000) {
+                interestRate = belowCore(amount, noOfDays, ageOfACHolder);
+            } else if (amount > 10000000) {
+                interestRate = aboveCore(amount, noOfDays);
+            } else {
+                System.out.println("Enter right amount.");
+                return 0;
+            }
+            return interestRate;
         }
     }
 
-    public void calculateFD(){
-        double interest = (amount * interest_rate)/100;
-        System.out.println("Interest: " + interest);
-    }
-}
+        class RDAccount extends Accounts {
+            Scanner sc = new Scanner(System.in);
+            double interestRate;
+            double amount;
+            int noOfMonths;
+            int ageOfACHolder;
+            double monthlyAmount;
+
+            double general(double monthlyAmount, double months) {
+                if (months > 0 && months <= 6) {
+                    return monthlyAmount * months * (months + 1) * 7.5 / 2400;
+                } else if (months > 6 && months <= 9) {
+                    return monthlyAmount * months * (months + 1) * 7.75 / 2400;
+                } else if (months > 9 && months <= 12) {
+                    return monthlyAmount * months * (months + 1) * 8 / 2400;
+                } else if (months > 12 && months <= 15) {
+                    return monthlyAmount * months * (months + 1) * 8.25 / 2400;
+                } else if (months > 15 && months <= 18) {
+                    return monthlyAmount * months * (months + 1) * 8.5 / 2400;
+                } else if (months > 18 && months <= 21) {
+                    return monthlyAmount * months * (months + 1) * 8.75 / 2400;
+                } else return 0;
+            }
+
+            double senior(double monthlyAmount, double months) {
+                if (months > 0 && months <= 6) {
+                    return monthlyAmount * months * (months + 1) * 8 / 2400;
+                } else if (months > 6 && months <= 9) {
+                    return monthlyAmount * months * (months + 1) * 8.25 / 2400;
+                } else if (months > 9 && months <= 12) {
+                    return monthlyAmount * months * (months + 1) * 8.5 / 2400;
+                } else if (months > 12 && months <= 15) {
+                    return monthlyAmount * months * (months + 1) * 8.75 / 2400;
+                } else if (months > 15 && months <= 18) {
+                    return monthlyAmount * months * (months + 1) * 9 / 2400;
+                } else if (months > 18 && months <= 21) {
+                    return monthlyAmount * months * (months + 1) * 9.25 / 2400;
+                } else return 0;
+            }
+
+            double calculateInterest() {
+                System.out.println("Enter the monthly amount: ");
+                monthlyAmount = sc.nextDouble();
+
+                if (monthlyAmount < 0) {
+                    System.out.println("Invalid Amount. Please Enter correct details.");
+                    return 0;
+                }
+
+                System.out.println("Enter the number of months: ");
+                noOfMonths = sc.nextInt();
+
+                if (noOfMonths <= 0) {
+                    System.out.println("Invalid no. of Months. Please Enter correct details.");
+                    return 0;
+                }
+
+                amount = monthlyAmount * noOfMonths;
+                System.out.println("Enter your Age: ");
+                ageOfACHolder = sc.nextInt();
+
+                if (ageOfACHolder <= 0) {
+                    System.out.println("Invalid Age. Please Enter correct details.");
+                    return 0;
+                } else if (ageOfACHolder >= 1 && ageOfACHolder <= 60) {
+                    interestRate = general(monthlyAmount, noOfMonths);
+                } else {
+                    interestRate = senior(monthlyAmount, noOfMonths);
+                }
+                return interestRate;
+            }
+        }
+
+            class exp_3 {
+                public static void main(String[] args) {
+
+                    Scanner sc = new Scanner(System.in);
+
+
+                    SBAccount sb = new SBAccount();
+
+                    FDAccount fd = new FDAccount();
+                    RDAccount rd = new RDAccount();
+
+                    while (true) {
+                        System.out.println("\nSelect the option:" +
+                                "\n1. Calculate SB - " +
+                                "\n2. Calculate FD - " +
+                                "\n3. Calculate RD - " +
+                                "\n4. Close this menu.\n");
+                        int n = sc.nextInt();
+                        switch (n) {
+                            case 1:
+                                double d1 = sb.calculateInterest();
+                                System.out.println("Interest -  " + d1);
+                                break;
+                            case 2:
+                                double d2 = fd.calculateInterest();
+                                System.out.println("Interest - " + d2);
+                                break;
+                            case 3:
+                                double d3 =  rd.calculateInterest();
+                                System.out.println("Interest - " + d3);
+                                break;
+                            case 4:
+                                System.out.println("Exiting...");
+                                sc.close();
+                        }
+                    }
+                }
+            }
