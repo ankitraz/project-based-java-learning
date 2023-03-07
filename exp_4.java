@@ -19,7 +19,7 @@ public class exp_4 {
         System.out.println("Enter a selection: ");
         System.out.println("1. Add an Employee: ");
         System.out.println("2. Display All: ");
-        System.out.println("3. Display an employee by its ID: ");
+        System.out.println("3. Display an employee details by its E-ID: ");
         System.out.println("4. Exit!");
         System.out.println("-------------------------------------");
         System.out.println();
